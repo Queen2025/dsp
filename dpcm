@@ -1,0 +1,43 @@
+clc;
+clf;
+clear all;
+close;
+t=0:1:50;
+f=0.02;
+x=sin(2*%pi*f*t);
+subplot(3,2,1);
+plot(t,x);
+title("continuous time signal");
+n=0:1:50;
+fs=0.6;
+xq=sin(2*%pi*f*n/fs);
+for j=1:1:length(xq)
+    if j==1 then
+        xdiff(j)=xq(j);
+    else
+        xdiff(j)=xq(j)-xq(j-1);
+    end
+end
+xdiff=xdiff';
+subplot(3,2,2);
+plot2d3(n,xq);
+title('sampled signal');
+subplot(3,2,5);
+plot2d3(n,xdiff);
+title("difference signal");
+L=8;
+d=2*0.2079127/L;
+q=d*[0:L-1];
+q=q((L-1)/2)*d;
+for i=1:L
+    xdiff(find(((q(i)-d/2)<=xdiff) & (xdiff<=(q(i)+d/2)))) = q(i) * ones(1, length(find(((q(i)-d/2)<=xdiff) & (xdiff<=(q(i)+d/2)))));
+    encode(find(xdiff==q(i)))=(i-1)*ones(1,length(find(xdiff==q(i))));
+end
+subplot(3,2,3);
+plot2d3(n,xdiff);
+title("quantized signal");
+subplot(3,2,4);
+plot2d3(n,encode);
+title("encoded signal");
+str=dec2bin(encode,3);
+disp(str);
