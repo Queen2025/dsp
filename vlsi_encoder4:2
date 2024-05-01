@@ -1,20 +1,19 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
 entity encoder4_2 is
-Port(a: in STD_LOGIC_VECTOR(3 downto 0);
-b: out STD_LOGIC_VECTOR(1 downto 0)
+port(
+a: in std_logic_vector(3 downto 0);
+b: out std_logic_vector(1 downto 0)
 );
 end encoder4_2;
-architecture Behavioral of encoder4_2 is
-begin process(a)
+architecture behvioral of encoder4_2 is
+bnegin 
+process(a)
 begin
-case a is
-when "1000" =>
-b<="00"; when
-"0100"=> b<="01";
-when"0010"=> b<="10";
-when "0001"=> b<="11";
-when others =>
-b<="ZZ"; end case;
+ case a is
+when "1000"=>b<="00";
+when "0100"=>b<="01";
+when "0010"=>b<="10";
+when "0001"=>b<="11";
 end process;
-end Behavioral;
+end behavioral;
